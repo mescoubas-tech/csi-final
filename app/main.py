@@ -27,6 +27,16 @@ app.include_router(planning_router)
 @app.get("/health", include_in_schema=False)
 async def health():
     return {"status": "ok", "version": VERSION}
+    import time
+START_TS = time.time()
+
+@app.get("/health", include_in_schema=False)
+async def health():
+    return {
+        "status": "ok",
+        "version": VERSION,
+        "uptime_s": int(time.time() - START_TS),
+    }
 
 # UI inline (page d’accueil)
 @app.get("/", include_in_schema=False)
